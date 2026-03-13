@@ -432,6 +432,9 @@
     margin-left: 100vw; overflow: hidden;
     z-index: 50; background: white;
   }
+  .app:has(.landscape-game) {
+    max-width: 100%; width: 100%;
+  }
   .landscape-game {
     display: flex; flex-direction: column;
     height: 100%; width: 100%;
@@ -450,6 +453,7 @@
   .landscape-game .game-container {
     flex-direction: column; align-items: center; justify-content: center;
     padding: 8px 16px; gap: 10px; flex: 1; overflow-y: auto;
+    width: 100%; max-width: 100%;
   }
   .landscape-game .pattern-label { font-size: 0.75rem; margin-bottom: 4px; }
   .landscape-game .pattern-row { gap: 5px; margin-bottom: 8px; flex-wrap: nowrap; }
