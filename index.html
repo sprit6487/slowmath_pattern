@@ -518,6 +518,20 @@ setTimeout(function() {
     </div>
   </div>
 
+  <!-- Mode 3: 색깔 패턴 -->
+  <div class="mode-card">
+    <h2>색깔 패턴</h2>
+    <p class="desc">빨강, 파랑, 노랑, 초록 원으로 패턴을 찾아요</p>
+    <div class="mode-preview">
+      <span>🔴</span><span>🔵</span><span>🔴</span><span>🔵</span><span>🔴</span><span style="opacity:0.4;">❓</span>
+    </div>
+    <div class="mode-btns">
+      <button class="start-btn" onclick="startGame('color',2)">2개 주기</button>
+      <button class="start-btn" onclick="startGame('color',3)">3개 주기</button>
+      <button class="start-btn" onclick="startGame('color',4)">4개 주기</button>
+    </div>
+  </div>
+
   <!-- Wrong Notes Button -->
   <button class="wrong-notes-btn" id="wrong-notes-btn" onclick="showWrongNotes()" style="display:none;">
     오답노트 <span class="badge" id="wn-badge">0</span>
@@ -612,6 +626,7 @@ const TOTAL_QUESTIONS = 10;
 const FRUIT_ITEMS = ['🍎', '🍌', '🍇', '🍓'];
 const TRIANGLE_SVG = '<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><polygon points="50,8 95,98 5,98" fill="#F0C030" stroke="#D4A820" stroke-width="4"/></svg>';
 const SHAPE_ITEMS = ['🔵', '🟩', TRIANGLE_SVG, '❤️'];
+const COLOR_ITEMS = ['🔴', '🔵', '🟡', '🟢'];
 
 // ===== State =====
 let settings = loadSettings();
@@ -719,7 +734,9 @@ function shuffle(arr) {
 }
 
 function getItems() {
-  return currentMode === 'fruit' ? FRUIT_ITEMS : SHAPE_ITEMS;
+  if (currentMode === 'fruit') return FRUIT_ITEMS;
+  if (currentMode === 'color') return COLOR_ITEMS;
+  return SHAPE_ITEMS;
 }
 
 // Generate a pattern unit of given cycle length using available items
