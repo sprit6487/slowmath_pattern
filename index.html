@@ -953,23 +953,50 @@ function generatePatternUnit(cycle, items) {
 let orientationLocked = false;
 let useCssFallback = false;
 
+function applyForceLandscape() {
+  const gameView = document.getElementById('play-view');
+  useCssFallback = true;
+  if (window.innerHeight > window.innerWidth) {
+    gameView.classList.add('force-landscape');
+  }
+}
+
 function lockLandscape() {
   const gameView = document.getElementById('play-view');
   gameView.classList.add('landscape-game');
-  const so = screen.orientation;
-  if (so && so.lock) {
-    so.lock('landscape').then(() => {
-      orientationLocked = true;
+
+  // 1) Try fullscreen + orientation lock (works on Chrome Android)
+  const el = document.documentElement;
+  const requestFs = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+  if (requestFs) {
+    requestFs.call(el).then(() => {
+      const so = screen.orientation;
+      if (so && so.lock) {
+        so.lock('landscape').then(() => {
+          orientationLocked = true;
+        }).catch(() => applyForceLandscape());
+      } else {
+        applyForceLandscape();
+      }
     }).catch(() => {
-      useCssFallback = true;
-      if (window.innerHeight > window.innerWidth) {
-        gameView.classList.add('force-landscape');
+      // 2) Try orientation lock without fullscreen
+      const so = screen.orientation;
+      if (so && so.lock) {
+        so.lock('landscape').then(() => {
+          orientationLocked = true;
+        }).catch(() => applyForceLandscape());
+      } else {
+        applyForceLandscape();
       }
     });
   } else {
-    useCssFallback = true;
-    if (window.innerHeight > window.innerWidth) {
-      gameView.classList.add('force-landscape');
+    const so = screen.orientation;
+    if (so && so.lock) {
+      so.lock('landscape').then(() => {
+        orientationLocked = true;
+      }).catch(() => applyForceLandscape());
+    } else {
+      applyForceLandscape();
     }
   }
 }
@@ -983,6 +1010,9 @@ function unlockLandscape() {
     orientationLocked = false;
   }
   useCssFallback = false;
+  // Exit fullscreen if active
+  const exitFs = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+  if (exitFs && document.fullscreenElement) exitFs.call(document);
 }
 
 window.addEventListener('resize', () => {
