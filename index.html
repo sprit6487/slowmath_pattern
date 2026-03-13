@@ -509,7 +509,7 @@ setTimeout(function() {
     <h2>도형 패턴</h2>
     <p class="desc">원, 네모, 세모, 하트로 패턴을 찾아요</p>
     <div class="mode-preview">
-      <span>🔵</span><span>🟥</span><span>🔺</span><span>🔵</span><span>🟥</span><span style="opacity:0.4;">❓</span>
+      <span>🔵</span><span>🟩</span><span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;"><polygon points="50,8 95,98 5,98" fill="#F0C030" stroke="#D4A820" stroke-width="4"/></svg></span><span>🔵</span><span>🟩</span><span style="opacity:0.4;">❓</span>
     </div>
     <div class="mode-btns">
       <button class="start-btn" onclick="startGame('shape',2)">2개 주기</button>
@@ -610,7 +610,8 @@ const TOTAL_QUESTIONS = 10;
 
 // Items
 const FRUIT_ITEMS = ['🍎', '🍌', '🍇', '🍓'];
-const SHAPE_ITEMS = ['🔵', '🟥', '🔺', '💜'];
+const TRIANGLE_SVG = '<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><polygon points="50,8 95,98 5,98" fill="#F0C030" stroke="#D4A820" stroke-width="4"/></svg>';
+const SHAPE_ITEMS = ['🔵', '🟩', TRIANGLE_SVG, '❤️'];
 
 // ===== State =====
 let settings = loadSettings();
@@ -794,11 +795,11 @@ function nextQuestion() {
   // Determine how many items to show and which position is the question
   // 2-cycle: show 5, answer 6th
   // 3-cycle: show 8, answer 9th
-  // 4-cycle: show 7, answer 8th
+  // 4-cycle: show 11, answer 12th
   let showCount;
   if (cycle === 2) showCount = 5;
   else if (cycle === 3) showCount = 8;
-  else showCount = 7;
+  else showCount = 11;
 
   const totalCount = showCount + 1;
   const answerIdx = showCount; // 0-based index of the answer position
@@ -832,11 +833,12 @@ function nextQuestion() {
   gc.innerHTML = `
     ${patternHTML}
     <div class="choices-grid" id="choices-grid">
-      ${choices.map(c => `<button class="choice-btn" data-val="${c}">${c}</button>`).join('')}
+      ${choices.map((c, i) => `<button class="choice-btn" data-idx="${i}">${c}</button>`).join('')}
     </div>
     <div class="impulse-msg" id="impulse-msg"></div>
   `;
 
+  const answerIdx2 = choices.indexOf(answer);
   speak('다음에 올 것은 무엇일까요?');
 
   // Impulse prevention
@@ -883,8 +885,8 @@ function nextQuestion() {
     btn.addEventListener('click', () => {
       if (locked) return;
       locked = true;
-      const val = btn.dataset.val;
-      if (val === answer) {
+      const idx = parseInt(btn.dataset.idx);
+      if (idx === answerIdx2) {
         btn.classList.add('correct');
         combo++;
         score += 10 + (combo > 1 ? combo * 2 : 0);
@@ -900,7 +902,7 @@ function nextQuestion() {
         showFeedback('😢');
         speak('다시 해봐요.');
         gc.querySelectorAll('.choice-btn').forEach(b => {
-          if (b.dataset.val === answer) b.classList.add('correct');
+          if (parseInt(b.dataset.idx) === answerIdx2) b.classList.add('correct');
         });
         updateScoreUI();
         setTimeout(() => nextQuestion(), 1300);
