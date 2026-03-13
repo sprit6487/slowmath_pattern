@@ -442,27 +442,27 @@
     padding-right: max(16px, env(safe-area-inset-right));
     background: white;
   }
-  .landscape-game .play-header { margin-bottom: 4px; gap: 8px; }
+  .landscape-game .play-header { margin-bottom: 4px; gap: 8px; flex-shrink: 0; }
   .landscape-game .back-btn { width: 30px; height: 30px; border-radius: 8px; }
   .landscape-game .play-progress-label { font-size: 0.7rem; }
   .landscape-game .play-score { font-size: 0.75rem; }
-  .landscape-game .combo-badge { font-size: 0.7rem; min-height: 14px; }
+  .landscape-game .combo-badge { font-size: 0.7rem; min-height: 14px; flex-shrink: 0; }
   .landscape-game .game-container {
-    flex-direction: row; align-items: center; justify-content: center;
-    padding: 10px 16px; gap: 24px; flex: 1;
+    flex-direction: column; align-items: center; justify-content: center;
+    padding: 8px 16px; gap: 10px; flex: 1; overflow-y: auto;
   }
-  .landscape-game .pattern-label { font-size: 0.75rem; margin-bottom: 6px; }
-  .landscape-game .pattern-row { gap: 5px; margin-bottom: 8px; }
-  .landscape-game .pattern-item { width: 38px; height: 38px; font-size: 1.5rem; border-radius: 10px; }
-  .landscape-game .pattern-item.question { font-size: 1.2rem; }
-  .landscape-game .pattern-item.blank { font-size: 1.2rem; }
-  .landscape-game .pattern-group { padding: 4px 5px; gap: 5px; border-radius: 10px; }
+  .landscape-game .pattern-label { font-size: 0.75rem; margin-bottom: 4px; }
+  .landscape-game .pattern-row { gap: 5px; margin-bottom: 8px; flex-wrap: nowrap; }
+  .landscape-game .pattern-item { width: 36px; height: 36px; font-size: 1.4rem; border-radius: 10px; }
+  .landscape-game .pattern-item.question { font-size: 1.1rem; }
+  .landscape-game .pattern-item.blank { font-size: 1.1rem; }
+  .landscape-game .pattern-group { padding: 3px 4px; gap: 4px; border-radius: 10px; }
   .landscape-game .choices-grid {
-    grid-template-columns: repeat(4, 1fr); max-width: none;
+    grid-template-columns: repeat(4, 1fr); max-width: 360px;
     gap: 8px; margin-top: 0;
   }
-  .landscape-game .choice-btn { padding: 10px; font-size: 1.6rem; border-radius: 12px; }
-  .landscape-game .impulse-msg { font-size: 0.8rem; margin-top: 6px; min-height: 18px; }
+  .landscape-game .choice-btn { padding: 8px; font-size: 1.5rem; border-radius: 12px; }
+  .landscape-game .impulse-msg { font-size: 0.8rem; margin-top: 4px; min-height: 18px; }
   .landscape-game .reveal-btn { padding: 8px 20px; font-size: 0.85rem; }
   .landscape-game .complete-overlay { margin-top: 10px; gap: 6px; }
   .landscape-game .complete-emoji { font-size: 36px; }
