@@ -433,15 +433,14 @@
     z-index: 50; background: white;
   }
   .landscape-game {
-    max-width: 100% !important; min-height: 100% !important;
-    padding: 8px 16px !important;
-    padding-top: max(8px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
-    padding-left: max(16px, env(safe-area-inset-left)) !important;
-    padding-right: max(16px, env(safe-area-inset-right)) !important;
-  }
-  .landscape-game #play-view {
-    height: 100%; display: flex; flex-direction: column;
+    display: flex; flex-direction: column;
+    height: 100%; width: 100%;
+    padding: 8px 16px;
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    background: white;
   }
   .landscape-game .play-header { margin-bottom: 4px; gap: 8px; }
   .landscape-game .back-btn { width: 30px; height: 30px; border-radius: 8px; }
@@ -955,8 +954,8 @@ let orientationLocked = false;
 let useCssFallback = false;
 
 function lockLandscape() {
-  const appEl = document.querySelector('.app');
-  appEl.classList.add('landscape-game');
+  const gameView = document.getElementById('play-view');
+  gameView.classList.add('landscape-game');
   const so = screen.orientation;
   if (so && so.lock) {
     so.lock('landscape').then(() => {
@@ -964,20 +963,20 @@ function lockLandscape() {
     }).catch(() => {
       useCssFallback = true;
       if (window.innerHeight > window.innerWidth) {
-        appEl.classList.add('force-landscape');
+        gameView.classList.add('force-landscape');
       }
     });
   } else {
     useCssFallback = true;
     if (window.innerHeight > window.innerWidth) {
-      appEl.classList.add('force-landscape');
+      gameView.classList.add('force-landscape');
     }
   }
 }
 
 function unlockLandscape() {
-  const appEl = document.querySelector('.app');
-  appEl.classList.remove('landscape-game', 'force-landscape');
+  const gameView = document.getElementById('play-view');
+  gameView.classList.remove('landscape-game', 'force-landscape');
   if (orientationLocked) {
     const so = screen.orientation;
     if (so && so.unlock) so.unlock();
@@ -988,11 +987,11 @@ function unlockLandscape() {
 
 window.addEventListener('resize', () => {
   if (useCssFallback) {
-    const appEl = document.querySelector('.app');
+    const gameView = document.getElementById('play-view');
     if (window.innerHeight > window.innerWidth) {
-      appEl.classList.add('force-landscape');
+      gameView.classList.add('force-landscape');
     } else {
-      appEl.classList.remove('force-landscape');
+      gameView.classList.remove('force-landscape');
     }
   }
 });
