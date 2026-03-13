@@ -456,11 +456,11 @@
     width: 100%; max-width: 100%;
   }
   .landscape-game .pattern-label { font-size: 0.75rem; margin-bottom: 4px; }
-  .landscape-game .pattern-row { gap: 5px; margin-bottom: 8px; flex-wrap: nowrap; }
-  .landscape-game .pattern-item { width: 36px; height: 36px; font-size: 1.4rem; border-radius: 10px; }
-  .landscape-game .pattern-item.question { font-size: 1.1rem; }
-  .landscape-game .pattern-item.blank { font-size: 1.1rem; }
-  .landscape-game .pattern-group { padding: 3px 4px; gap: 4px; border-radius: 10px; }
+  .landscape-game .pattern-row { gap: 4px; margin-bottom: 8px; flex-wrap: nowrap; width: 100%; justify-content: center; }
+  .landscape-game .pattern-item { width: min(36px, 5vw); height: min(36px, 5vw); font-size: min(1.4rem, 3.5vw); border-radius: 10px; flex-shrink: 1; min-width: 0; }
+  .landscape-game .pattern-item.question { font-size: min(1.1rem, 3vw); }
+  .landscape-game .pattern-item.blank { font-size: min(1.1rem, 3vw); }
+  .landscape-game .pattern-group { padding: 3px 4px; gap: 3px; border-radius: 10px; flex-shrink: 1; min-width: 0; }
   .landscape-game .choices-grid {
     grid-template-columns: repeat(4, 1fr); max-width: 360px;
     gap: 8px; margin-top: 0;
