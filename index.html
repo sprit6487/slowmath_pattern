@@ -109,9 +109,13 @@
   }
   .diff-btn {
     padding: 5px 10px; border-radius: 16px; border: 1.5px solid var(--border);
-    background: white; color: var(--warm-500); font-size: 0.72rem; font-weight: 600;
+    background: white; color: var(--warm-500); font-size: 0.78rem; font-weight: 600;
     cursor: pointer; font-family: inherit; transition: all 0.15s;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 1px; text-align: center; line-height: 1.2;
   }
+  .diff-btn .diff-stars { font-size: 0.65rem; }
+  .diff-btn .diff-label { font-size: 0.68rem; }
   .diff-btn:hover, .diff-btn:active {
     background: var(--app-blue-soft); border-color: var(--app-blue); color: var(--app-blue);
   }
@@ -419,6 +423,68 @@
     .pattern-item { width: 56px; height: 56px; font-size: 2.2rem; }
   }
 
+  /* ===== Landscape Mode ===== */
+  @media (orientation: landscape) and (max-height: 500px) {
+    /* App container: full width, no max-width constraint */
+    .app {
+      max-width: 100%; padding: 8px 16px;
+      padding-top: max(8px, env(safe-area-inset-top));
+      padding-bottom: max(8px, env(safe-area-inset-bottom));
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+    }
+
+    /* Play view: fill available space */
+    #play-view { height: 100%; }
+
+    /* Compact header */
+    .play-header { margin-bottom: 6px; gap: 8px; }
+    .back-btn { width: 30px; height: 30px; border-radius: 8px; }
+    .play-progress-label { font-size: 0.7rem; }
+    .play-score { font-size: 0.75rem; }
+    .combo-badge { font-size: 0.7rem; min-height: 14px; }
+
+    /* Game container: side-by-side layout */
+    .game-container {
+      flex-direction: row; align-items: center; justify-content: center;
+      padding: 12px 16px; gap: 20px; flex: 1;
+    }
+
+    /* Left side: pattern */
+    .pattern-label { font-size: 0.75rem; margin-bottom: 6px; }
+    .pattern-row { gap: 5px; margin-bottom: 8px; }
+    .pattern-item { width: 38px; height: 38px; font-size: 1.5rem; border-radius: 10px; }
+    .pattern-item.question { font-size: 1.2rem; }
+    .pattern-item.blank { font-size: 1.2rem; }
+    .pattern-group { padding: 4px 5px; gap: 5px; border-radius: 10px; }
+
+    /* Right side: choices - horizontal row */
+    .choices-grid {
+      grid-template-columns: repeat(4, 1fr); max-width: none;
+      gap: 8px; margin-top: 0;
+    }
+    .choice-btn { padding: 10px; font-size: 1.6rem; border-radius: 12px; }
+
+    /* Impulse */
+    .impulse-msg { font-size: 0.8rem; margin-top: 6px; min-height: 18px; }
+    .reveal-btn { padding: 8px 20px; font-size: 0.85rem; }
+
+    /* Complete overlay */
+    .complete-overlay { margin-top: 10px; gap: 6px; }
+    .complete-emoji { font-size: 36px; }
+    .complete-msg { font-size: 1rem; }
+    .next-btn { padding: 10px 28px; font-size: 0.9rem; }
+  }
+
+  /* Wider landscape (tablets) */
+  @media (orientation: landscape) and (min-width: 640px) and (max-height: 500px) {
+    .game-container { gap: 32px; padding: 14px 24px; }
+    .pattern-item { width: 44px; height: 44px; font-size: 1.7rem; }
+    .pattern-item.question { font-size: 1.3rem; }
+    .pattern-item.blank { font-size: 1.3rem; }
+    .choice-btn { padding: 12px; font-size: 1.8rem; }
+  }
+
   /* Splash Screen */
   .splash-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -572,7 +638,7 @@ setTimeout(function() {
     <h2>과일 패턴</h2>
     <p class="desc">사과, 바나나, 포도, 수박으로 패턴을 찾아요</p>
     <div class="mode-preview">
-      <span>🍎</span><span>🍌</span><span>🍎</span><span>🍌</span><span>🍎</span><span style="opacity:0.4;">❓</span>
+      <span>🍎</span><span><svg viewBox="0 0 72 72" width="1em" height="1em" style="vertical-align:-0.1em;"><path fill="#fcea2b" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m50.46,50.44c-10.99,12.99-25.13,11.67-34.89,6.89-.31-.15-.46-.52-.53-.87-.19-.89.45-1.72,1.35-1.79,5.19-.39,12.96-2.15,21.71-9.61,1.11-.95,2.13-2.01,3.02-3.16,4.89-6.28,9.1-14.39,9.35-20.97.02-.52.42-.94.94-.95,3.12-.1,2.7-.24,2.95.37,4.16,9.91,2.52,22.01-3.89,30.1z"/><path fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m53.21,19.66c3.72-1.24,6.04,20.64-1.99,30.49-11.8,11.01-23.66,12.65-36.25,5.91,25.96,5.49,39.47-15.38,38.25-36.4z"/><line x1="52.09" x2="51.52" y1="15.49" y2="11.2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m25.79,56.55c16.7-2.91,24.45-11.14,26.67-27.09"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m47.54,54.03c-8.11,7.21-23.05,9.45-32.43,2.76l-.41-1.9c18.42-2.21,32.78-13.96,35.36-35.55,1.11,0,4.65-.4,4.65-.4,5.6,15.1,1.75,27.15-7.16,35.08z"/></svg></span><span>🍎</span><span><svg viewBox="0 0 72 72" width="1em" height="1em" style="vertical-align:-0.1em;"><path fill="#fcea2b" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m50.46,50.44c-10.99,12.99-25.13,11.67-34.89,6.89-.31-.15-.46-.52-.53-.87-.19-.89.45-1.72,1.35-1.79,5.19-.39,12.96-2.15,21.71-9.61,1.11-.95,2.13-2.01,3.02-3.16,4.89-6.28,9.1-14.39,9.35-20.97.02-.52.42-.94.94-.95,3.12-.1,2.7-.24,2.95.37,4.16,9.91,2.52,22.01-3.89,30.1z"/><path fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m53.21,19.66c3.72-1.24,6.04,20.64-1.99,30.49-11.8,11.01-23.66,12.65-36.25,5.91,25.96,5.49,39.47-15.38,38.25-36.4z"/><line x1="52.09" x2="51.52" y1="15.49" y2="11.2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m25.79,56.55c16.7-2.91,24.45-11.14,26.67-27.09"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m47.54,54.03c-8.11,7.21-23.05,9.45-32.43,2.76l-.41-1.9c18.42-2.21,32.78-13.96,35.36-35.55,1.11,0,4.65-.4,4.65-.4,5.6,15.1,1.75,27.15-7.16,35.08z"/></svg></span><span>🍎</span><span style="opacity:0.4;">❓</span>
     </div>
     <div class="mode-btns">
       <div class="cycle-selector" id="cycle-fruit">
@@ -583,9 +649,9 @@ setTimeout(function() {
       </div>
       <div class="diff-selector" id="diff-fruit">
         <span class="cycle-label">난이도</span>
-        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('fruit',1)">⭐ 쉬움</button>
-        <button class="diff-btn" data-diff="2" onclick="selectDiff('fruit',2)">⭐⭐ 보통</button>
-        <button class="diff-btn" data-diff="3" onclick="selectDiff('fruit',3)">⭐⭐⭐ 어려움</button>
+        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('fruit',1)"><span class="diff-stars">⭐</span><span class="diff-label">쉬움</span></button>
+        <button class="diff-btn" data-diff="2" onclick="selectDiff('fruit',2)"><span class="diff-stars">⭐⭐</span><span class="diff-label">보통</span></button>
+        <button class="diff-btn" data-diff="3" onclick="selectDiff('fruit',3)"><span class="diff-stars">⭐⭐⭐</span><span class="diff-label">어려움</span></button>
       </div>
       <button class="start-btn mode-start" onclick="startGame('fruit')">시작하기</button>
     </div>
@@ -613,9 +679,9 @@ setTimeout(function() {
       </div>
       <div class="diff-selector" id="diff-color">
         <span class="cycle-label">난이도</span>
-        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('color',1)">⭐ 쉬움</button>
-        <button class="diff-btn" data-diff="2" onclick="selectDiff('color',2)">⭐⭐ 보통</button>
-        <button class="diff-btn" data-diff="3" onclick="selectDiff('color',3)">⭐⭐⭐ 어려움</button>
+        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('color',1)"><span class="diff-stars">⭐</span><span class="diff-label">쉬움</span></button>
+        <button class="diff-btn" data-diff="2" onclick="selectDiff('color',2)"><span class="diff-stars">⭐⭐</span><span class="diff-label">보통</span></button>
+        <button class="diff-btn" data-diff="3" onclick="selectDiff('color',3)"><span class="diff-stars">⭐⭐⭐</span><span class="diff-label">어려움</span></button>
       </div>
       <button class="start-btn mode-start" onclick="startGame('color')">시작하기</button>
     </div>
@@ -643,9 +709,9 @@ setTimeout(function() {
       </div>
       <div class="diff-selector" id="diff-shape">
         <span class="cycle-label">난이도</span>
-        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('shape',1)">⭐ 쉬움</button>
-        <button class="diff-btn" data-diff="2" onclick="selectDiff('shape',2)">⭐⭐ 보통</button>
-        <button class="diff-btn" data-diff="3" onclick="selectDiff('shape',3)">⭐⭐⭐ 어려움</button>
+        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('shape',1)"><span class="diff-stars">⭐</span><span class="diff-label">쉬움</span></button>
+        <button class="diff-btn" data-diff="2" onclick="selectDiff('shape',2)"><span class="diff-stars">⭐⭐</span><span class="diff-label">보통</span></button>
+        <button class="diff-btn" data-diff="3" onclick="selectDiff('shape',3)"><span class="diff-stars">⭐⭐⭐</span><span class="diff-label">어려움</span></button>
       </div>
       <button class="start-btn mode-start" onclick="startGame('shape')">시작하기</button>
     </div>
@@ -743,7 +809,8 @@ const TOTAL_QUESTIONS = 10;
 
 // Items
 const WATERMELON_SVG = '<svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><defs><radialGradient id="wmg" cx="40%" cy="35%"><stop offset="0%" stop-color="#A8D84A"/><stop offset="100%" stop-color="#6B9E2A"/></radialGradient><clipPath id="wmc"><circle cx="50" cy="52" r="44"/></clipPath></defs><circle cx="50" cy="52" r="44" fill="url(#wmg)"/><g clip-path="url(#wmc)"><path d="M18 8 C22 25 14 40 20 55 C16 70 18 85 14 98" fill="none" stroke="#2D5A1E" stroke-width="6" opacity="0.55" stroke-linecap="round"/><path d="M35 5 C31 22 37 38 33 55 C37 72 31 85 28 100" fill="none" stroke="#2D5A1E" stroke-width="5" opacity="0.5" stroke-linecap="round"/><path d="M50 3 C54 20 46 38 52 55 C48 72 54 85 50 100" fill="none" stroke="#2D5A1E" stroke-width="6" opacity="0.55" stroke-linecap="round"/><path d="M65 5 C69 22 63 38 67 55 C63 72 69 85 72 100" fill="none" stroke="#2D5A1E" stroke-width="5" opacity="0.5" stroke-linecap="round"/><path d="M82 8 C78 25 86 40 80 55 C84 70 82 85 86 98" fill="none" stroke="#2D5A1E" stroke-width="6" opacity="0.55" stroke-linecap="round"/></g><circle cx="50" cy="52" r="44" fill="none" stroke="#4A7A20" stroke-width="2"/><ellipse cx="36" cy="30" rx="12" ry="7" fill="white" opacity="0.18" transform="rotate(-25 36 30)"/><circle cx="50" cy="6" r="3" fill="#5A7A30"/></svg>';
-const FRUIT_ITEMS = ['🍎', '🍌', '🍇', WATERMELON_SVG];
+const BANANA_SVG = '<svg viewBox="0 0 72 72" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><path fill="#fcea2b" stroke="#fcea2b" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m50.46,50.44c-10.99,12.99-25.13,11.67-34.89,6.89-.31-.15-.46-.52-.53-.87-.19-.89.45-1.72,1.35-1.79,5.19-.39,12.96-2.15,21.71-9.61,1.11-.95,2.13-2.01,3.02-3.16,4.89-6.28,9.1-14.39,9.35-20.97.02-.52.42-.94.94-.95,3.12-.1,2.7-.24,2.95.37,4.16,9.91,2.52,22.01-3.89,30.1z"/><path fill="#f1b31c" stroke="#f1b31c" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" d="m53.21,19.66c3.72-1.24,6.04,20.64-1.99,30.49-11.8,11.01-23.66,12.65-36.25,5.91,25.96,5.49,39.47-15.38,38.25-36.4z"/><line x1="52.09" x2="51.52" y1="15.49" y2="11.2" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m25.79,56.55c16.7-2.91,24.45-11.14,26.67-27.09"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m47.54,54.03c-8.11,7.21-23.05,9.45-32.43,2.76l-.41-1.9c18.42-2.21,32.78-13.96,35.36-35.55,1.11,0,4.65-.4,4.65-.4,5.6,15.1,1.75,27.15-7.16,35.08z"/></svg>';
+const FRUIT_ITEMS = ['🍎', BANANA_SVG, '🍇', WATERMELON_SVG];
 const TRIANGLE_SVG = '<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><polygon points="50,8 95,98 5,98" fill="#F0C030" stroke="#D4A820" stroke-width="4"/></svg>';
 const SHAPE_ITEMS = ['🔵', '🟩', TRIANGLE_SVG, '❤️'];
 const COLOR_ITEMS = ['🔴', '🔵', '🟡', '🟢'];
