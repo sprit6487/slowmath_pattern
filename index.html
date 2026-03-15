@@ -264,20 +264,10 @@
   .pattern-group {
     display: flex; gap: 8px;
     padding: 6px 8px;
-    border: 2px dashed var(--app-orange); border-radius: 12px;
-    opacity: 1;
+    border: 1.5px dashed var(--warm-300); border-radius: 12px;
+    opacity: 0.85;
   }
-  .pattern-group:nth-child(even) { border-color: var(--app-blue); }
-
-  /* Hint toggle row */
-  .mode-hint-row {
-    display: flex; align-items: center; gap: 6px;
-    position: absolute; top: 14px; right: 14px;
-  }
-  .mode-hint-row .hint-toggle-label { font-size: 0.7rem; font-weight: 600; color: var(--warm-400); }
-  .mode-hint-row .toggle-track { width: 36px; height: 20px; }
-  .mode-hint-row .toggle-knob { width: 16px; height: 16px; top: 2px; left: 2px; }
-  .mode-hint-row .toggle-track.on .toggle-knob { transform: translateX(16px); }
+  .pattern-group:nth-child(even) { border-color: var(--warm-300); border-style: dashed; }
   .mode-card { position: relative; }
 
   /* Choices */
@@ -617,12 +607,6 @@ setTimeout(function() {
 
   <!-- Mode 1: 구체물 (과일) -->
   <div class="mode-card">
-    <div class="mode-hint-row">
-      <span class="hint-toggle-label">힌트</span>
-      <button class="toggle-track" id="hint-toggle-fruit" onclick="toggleModeHint('fruit')" role="switch">
-        <span class="toggle-knob"></span>
-      </button>
-    </div>
     <h2>과일 패턴</h2>
     <p class="desc">사과, 바나나, 포도, 수박으로 패턴을 찾아요</p>
     <div class="mode-preview">
@@ -647,12 +631,6 @@ setTimeout(function() {
 
   <!-- Mode 2: 색깔 패턴 -->
   <div class="mode-card">
-    <div class="mode-hint-row">
-      <span class="hint-toggle-label">힌트</span>
-      <button class="toggle-track" id="hint-toggle-color" onclick="toggleModeHint('color')" role="switch">
-        <span class="toggle-knob"></span>
-      </button>
-    </div>
     <h2>색깔 패턴</h2>
     <p class="desc">빨강, 파랑, 노랑, 초록 원으로 패턴을 찾아요</p>
     <div class="mode-preview">
@@ -677,12 +655,6 @@ setTimeout(function() {
 
   <!-- Mode 3: 반구체물 (도형) -->
   <div class="mode-card">
-    <div class="mode-hint-row">
-      <span class="hint-toggle-label">힌트</span>
-      <button class="toggle-track" id="hint-toggle-shape" onclick="toggleModeHint('shape')" role="switch">
-        <span class="toggle-knob"></span>
-      </button>
-    </div>
     <h2>도형 패턴</h2>
     <p class="desc">원, 네모, 세모, 하트로 패턴을 찾아요</p>
     <div class="mode-preview">
@@ -712,6 +684,18 @@ setTimeout(function() {
 
   <!-- Settings -->
   <div class="settings-section">
+    <div class="setting-divider">
+      <div class="setting-header">
+        <div>
+          <p class="setting-title">힌트 <span class="badge">반복 패턴 묶음 표시</span></p>
+          <p class="setting-desc">점선으로 패턴 반복 구간을 표시해요</p>
+        </div>
+        <button class="toggle-track" id="hint-toggle" onclick="toggleHint()" role="switch">
+          <span class="toggle-knob"></span>
+        </button>
+      </div>
+    </div>
+
     <div class="setting-divider">
       <div class="setting-header">
         <div>
@@ -856,11 +840,9 @@ function loadSettings() {
       impulse: s?.impulse ?? true,
       impulseMode: s?.impulseMode ?? 'hide',
       impulseDelay: s?.impulseDelay ?? 3,
-      hintFruit: s?.hintFruit ?? true,
-      hintColor: s?.hintColor ?? true,
-      hintShape: s?.hintShape ?? true,
+      hint: s?.hint ?? true,
     };
-  } catch { return { tts: true, impulse: true, impulseMode: 'hide', impulseDelay: 3, hintFruit: true, hintColor: true, hintShape: true }; }
+  } catch { return { tts: true, impulse: true, impulseMode: 'hide', impulseDelay: 3, hint: true }; }
 }
 function saveSettings() { localStorage.setItem(STORAGE_KEY, JSON.stringify(settings)); }
 function toggleTTS() { settings.tts = !settings.tts; saveSettings(); renderSettingsUI(); }
@@ -868,13 +850,11 @@ function toggleImpulse() { settings.impulse = !settings.impulse; saveSettings();
 function setImpulseMode(mode) { settings.impulseMode = mode; saveSettings(); renderSettingsUI(); }
 function setImpulseDelay(sec) { settings.impulseDelay = sec; saveSettings(); renderSettingsUI(); }
 
+function toggleHint() { settings.hint = !settings.hint; saveSettings(); renderSettingsUI(); }
+
 function renderSettingsUI() {
-  const hfEl = document.getElementById('hint-toggle-fruit');
-  const hcEl = document.getElementById('hint-toggle-color');
-  const hsEl = document.getElementById('hint-toggle-shape');
-  if (hfEl) hfEl.classList.toggle('on', settings.hintFruit);
-  if (hcEl) hcEl.classList.toggle('on', settings.hintColor);
-  if (hsEl) hsEl.classList.toggle('on', settings.hintShape);
+  const hintEl = document.getElementById('hint-toggle');
+  if (hintEl) hintEl.classList.toggle('on', settings.hint);
 
   const ttsEl = document.getElementById('tts-toggle');
   const impEl = document.getElementById('impulse-toggle');
@@ -1037,13 +1017,7 @@ function goHome() {
   showView('start');
 }
 
-function toggleModeHint(mode) {
-  const key = 'hint' + mode.charAt(0).toUpperCase() + mode.slice(1);
-  settings[key] = !settings[key];
-  saveSettings();
-  const el = document.getElementById('hint-toggle-' + mode);
-  if (el) el.classList.toggle('on', settings[key]);
-}
+// toggleModeHint removed — now using global hint toggle
 
 function selectCycle(mode, cycle) {
   selectedCycles[mode] = cycle;
@@ -1069,8 +1043,7 @@ function startGame(mode, difficulty) {
   currentMode = mode;
   currentCycle = selectedCycles[mode] || 2;
   currentDifficulty = difficulty || selectedDiffs[mode] || 1;
-  const hintKey = 'hint' + mode.charAt(0).toUpperCase() + mode.slice(1);
-  showHint = !!settings[hintKey];
+  showHint = !!settings.hint;
   isWrongNotesPractice = false;
   score = 0; combo = 0; questionNum = 0;
   showView('play');
