@@ -1058,9 +1058,23 @@ window.addEventListener('resize', () => {
     const gameView = document.getElementById('play-view');
     if (window.innerHeight > window.innerWidth) {
       gameView.classList.add('force-landscape');
-    } else {
-      gameView.classList.remove('force-landscape');
     }
+    // Never remove here — requestFullscreen fires spurious resize events
+    // during transition that can briefly report wrong dimensions.
+    // Removal is handled exclusively in orientationchange.
+  }
+});
+
+window.addEventListener('orientationchange', () => {
+  if (useCssFallback) {
+    setTimeout(() => {
+      const gameView = document.getElementById('play-view');
+      if (window.innerHeight > window.innerWidth) {
+        gameView.classList.add('force-landscape');
+      } else {
+        gameView.classList.remove('force-landscape');
+      }
+    }, 150);
   }
 });
 
