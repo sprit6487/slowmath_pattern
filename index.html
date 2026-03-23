@@ -693,7 +693,7 @@ setTimeout(function() {
     <h2>도형 패턴</h2>
     <p class="desc">원, 네모, 세모, 하트로 패턴을 찾아요</p>
     <div class="mode-preview">
-      <span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span style="opacity:0.4;">❓</span>
+      <span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span style="opacity:0.4;">❓</span>
     </div>
     <div class="mode-btns">
       <div class="cycle-selector" id="cycle-shape">
@@ -826,13 +826,13 @@ function makeShapeSVG(shape, color) {
   const s = 'vertical-align:-0.15em;display:inline-block;';
   switch (shape) {
     case 'circle':
-      return `<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="${s}"><circle cx="50" cy="50" r="46" fill="${color}"/></svg>`;
+      return `<svg viewBox="0 0 100 100" width="1em" height="1em" style="${s}"><circle cx="50" cy="50" r="46" fill="${color}"/></svg>`;
     case 'square':
-      return `<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="${s}"><rect x="6" y="6" width="88" height="88" rx="14" fill="${color}"/></svg>`;
+      return `<svg viewBox="0 0 100 100" width="1em" height="1em" style="${s}"><rect x="6" y="6" width="88" height="88" rx="14" fill="${color}"/></svg>`;
     case 'triangle':
-      return `<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="${s}"><polygon points="50,6 96,97 4,97" fill="${color}"/></svg>`;
+      return `<svg viewBox="0 0 100 100" width="1em" height="1em" style="${s}"><polygon points="50,6 96,97 4,97" fill="${color}"/></svg>`;
     case 'heart':
-      return `<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="${s}"><path d="M50 82 C20 62 8 48 8 32 C8 19 18 8 32 8 C40 8 47 13 50 18 C53 13 60 8 68 8 C82 8 92 19 92 32 C92 48 80 62 50 82Z" fill="${color}"/></svg>`;
+      return `<svg viewBox="0 0 100 100" width="1em" height="1em" style="${s}"><path d="M50 82 C20 62 8 48 8 32 C8 19 18 8 32 8 C40 8 47 13 50 18 C53 13 60 8 68 8 C82 8 92 19 92 32 C92 48 80 62 50 82Z" fill="${color}"/></svg>`;
   }
 }
 
