@@ -984,39 +984,26 @@ function lockLandscape() {
   const gameView = document.getElementById('play-view');
   gameView.classList.add('landscape-game');
 
-  // 1) Try fullscreen + orientation lock (works on Chrome Android)
+  // CSS fallback is always active — native lock is a best-effort enhancement only
+  useCssFallback = true;
+  if (window.innerHeight > window.innerWidth) {
+    gameView.classList.add('force-landscape');
+  }
+
+  // Try native orientation lock (Chrome Android). Even if it succeeds,
+  // useCssFallback stays true so resize handler keeps monitoring.
   const el = document.documentElement;
   const requestFs = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
-  if (requestFs) {
-    requestFs.call(el).then(() => {
-      const so = screen.orientation;
-      if (so && so.lock) {
-        so.lock('landscape').then(() => {
-          orientationLocked = true;
-        }).catch(() => applyForceLandscape());
-      } else {
-        applyForceLandscape();
-      }
-    }).catch(() => {
-      // 2) Try orientation lock without fullscreen
-      const so = screen.orientation;
-      if (so && so.lock) {
-        so.lock('landscape').then(() => {
-          orientationLocked = true;
-        }).catch(() => applyForceLandscape());
-      } else {
-        applyForceLandscape();
-      }
-    });
-  } else {
+  const tryOrientationLock = () => {
     const so = screen.orientation;
     if (so && so.lock) {
-      so.lock('landscape').then(() => {
-        orientationLocked = true;
-      }).catch(() => applyForceLandscape());
-    } else {
-      applyForceLandscape();
+      so.lock('landscape').then(() => { orientationLocked = true; }).catch(() => {});
     }
+  };
+  if (requestFs) {
+    requestFs.call(el).then(tryOrientationLock).catch(tryOrientationLock);
+  } else {
+    tryOrientationLock();
   }
 }
 
