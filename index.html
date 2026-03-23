@@ -1230,13 +1230,10 @@ function renderPattern() {
   // Current blank's answer and choices
   const currentBlank = blanks[currentBlankIdx];
   const answer = currentBlank.answer;
-  const items = getItems();
-  const wrongSet = new Set();
-  while (wrongSet.size < 3) {
-    const w = items[Math.floor(Math.random() * items.length)];
-    if (w !== answer) wrongSet.add(w);
-  }
-  const choices = shuffle([answer, ...wrongSet]);
+  // Only use items that actually appear in the current pattern
+  const unitItems = [...new Set(currentUnit)];
+  const wrongItems = shuffle(unitItems.filter(w => w !== answer));
+  const choices = shuffle([answer, ...wrongItems.slice(0, 3)]);
   const answerChoiceIdx = choices.indexOf(answer);
 
   gc.innerHTML = `
