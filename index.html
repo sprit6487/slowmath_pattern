@@ -690,9 +690,9 @@ setTimeout(function() {
     </div>
   </div>
 
-  <!-- Mode 3: 반구체물 (도형) -->
+  <!-- Mode 3: 도형 패턴 (색 구분) -->
   <div class="mode-card">
-    <h2>도형 패턴</h2>
+    <h2>도형 패턴 (색 구분)</h2>
     <p class="desc">원, 네모, 세모, 하트로 패턴을 찾아요</p>
     <div class="mode-preview">
       <span>🔵</span><span>🟨</span><span>🔵</span><span>🟨</span><span>🔵</span><span style="opacity:0.4;">❓</span>
@@ -711,6 +711,35 @@ setTimeout(function() {
         <button class="diff-btn" data-diff="3" onclick="selectDiff('shape',3)"><span class="diff-stars">⭐⭐⭐</span><span class="diff-label">어려움</span></button>
       </div>
       <button class="start-btn mode-start" onclick="startGame('shape')">시작하기</button>
+    </div>
+  </div>
+
+  <!-- Mode 4: 도형 패턴 (단색) -->
+  <div class="mode-card">
+    <h2>도형 패턴</h2>
+    <p class="desc">같은 색 원, 네모, 세모, 하트로 패턴을 찾아요</p>
+    <div class="mode-preview" style="color:#5BC886;">
+      <svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#5BC886"/></svg>
+      <svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#5BC886"/></svg>
+      <svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#5BC886"/></svg>
+      <svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#5BC886"/></svg>
+      <svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#5BC886"/></svg>
+      <span style="opacity:0.4;">❓</span>
+    </div>
+    <div class="mode-btns">
+      <div class="cycle-selector" id="cycle-shape-mono">
+        <span class="cycle-label">반복 주기</span>
+        <button class="cycle-btn selected" data-cycle="2" onclick="selectCycle('shape-mono',2)">2개</button>
+        <button class="cycle-btn" data-cycle="3" onclick="selectCycle('shape-mono',3)">3개</button>
+        <button class="cycle-btn" data-cycle="4" onclick="selectCycle('shape-mono',4)">4개</button>
+      </div>
+      <div class="diff-selector" id="diff-shape-mono">
+        <span class="cycle-label">난이도</span>
+        <button class="diff-btn selected" data-diff="1" onclick="selectDiff('shape-mono',1)"><span class="diff-stars">⭐</span><span class="diff-label">쉬움</span></button>
+        <button class="diff-btn" data-diff="2" onclick="selectDiff('shape-mono',2)"><span class="diff-stars">⭐⭐</span><span class="diff-label">보통</span></button>
+        <button class="diff-btn" data-diff="3" onclick="selectDiff('shape-mono',3)"><span class="diff-stars">⭐⭐⭐</span><span class="diff-label">어려움</span></button>
+      </div>
+      <button class="start-btn mode-start" onclick="startGame('shape-mono')">시작하기</button>
     </div>
   </div>
 
@@ -824,6 +853,13 @@ const FRUIT_ITEMS = ['🍎', BANANA_SVG, '🍇', WATERMELON_SVG];
 const TRIANGLE_SVG = '<svg viewBox="0 0 100 100" width="0.9em" height="0.9em" style="vertical-align:-0.1em;display:inline-block;"><polygon points="50,8 95,98 5,98" fill="#5BC886" stroke="#3A9B6A" stroke-width="4"/></svg>';
 const SHAPE_ITEMS = ['🔵', '🟨', TRIANGLE_SVG, '❤️'];
 const COLOR_ITEMS = ['🔴', '🔵', '🟡', '🟢'];
+const MONO_GREEN = '#5BC886';
+const SHAPE_MONO_ITEMS = [
+  `<svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="${MONO_GREEN}"/></svg>`,
+  `<svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="${MONO_GREEN}"/></svg>`,
+  `<svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><polygon points="50,6 96,97 4,97" fill="${MONO_GREEN}"/></svg>`,
+  `<svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.15em;display:inline-block;"><path d="M50 82 C20 62 8 48 8 32 C8 19 18 8 32 8 C40 8 47 13 50 18 C53 13 60 8 68 8 C82 8 92 19 92 32 C92 48 80 62 50 82Z" fill="${MONO_GREEN}"/></svg>`
+];
 
 // ===== State =====
 let settings = loadSettings();
@@ -838,8 +874,8 @@ let locked = false;
 let impulseTimer = null;
 let isWrongNotesPractice = false;
 let wrongNotes = loadWrongNotes();
-let selectedCycles = { fruit: 2, color: 2, shape: 2 };
-let selectedDiffs = { fruit: 1, color: 1, shape: 1 };
+let selectedCycles = { fruit: 2, color: 2, shape: 2, 'shape-mono': 2 };
+let selectedDiffs = { fruit: 1, color: 1, shape: 1, 'shape-mono': 1 };
 // For fill-in-the-blank: track blanks and current blank index
 let blanks = []; // [{seqIdx, answer}]
 let currentBlankIdx = 0;
@@ -948,6 +984,7 @@ function shuffle(arr) {
 function getItems() {
   if (currentMode === 'fruit') return FRUIT_ITEMS;
   if (currentMode === 'color') return COLOR_ITEMS;
+  if (currentMode === 'shape-mono') return SHAPE_MONO_ITEMS;
   return SHAPE_ITEMS;
 }
 
@@ -1284,7 +1321,7 @@ function renderPattern() {
   }
 
   // Store pattern info for wrong notes
-  const patternKey = currentUnit.join('') + '_' + currentCycle;
+  const patternKey = currentMode + '###' + currentUnit.join('') + '###' + currentCycle;
 
   gc.querySelectorAll('.choice-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1404,9 +1441,16 @@ function startWrongNotesPractice() {
   currentDifficulty = 1;
   // Use the mode from the first wrong note
   const firstKey = wrongNotes[0];
-  const items = firstKey.split('_')[0];
-  currentMode = FRUIT_ITEMS.some(f => items.includes(f)) ? 'fruit' : 'shape';
-  currentCycle = parseInt(firstKey.split('_').pop());
+  if (firstKey.includes('###')) {
+    const parts = firstKey.split('###');
+    currentMode = parts[0];
+    currentCycle = parseInt(parts[2]);
+  } else {
+    // Legacy key format: detect from items
+    const items = firstKey.split('_')[0];
+    currentMode = FRUIT_ITEMS.some(f => items.includes(f)) ? 'fruit' : 'shape';
+    currentCycle = parseInt(firstKey.split('_').pop());
+  }
   showView('play');
   lockLandscape();
   updateScoreUI();
