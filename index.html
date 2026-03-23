@@ -131,6 +131,7 @@
     margin-bottom: 14px; min-height: 60px; font-size: 2rem; gap: 4px;
   }
   .mode-card .mode-preview svg { position: relative; top: 6px; }
+  .mode-card:last-child .mode-preview svg { position: static; }
   .mode-btns { display: flex; flex-direction: column; gap: 8px; width: 100%; }
   .cycle-selector {
     display: flex; align-items: center; gap: 6px; justify-content: center; margin-bottom: 4px;
@@ -693,7 +694,7 @@ setTimeout(function() {
     <h2>도형 패턴</h2>
     <p class="desc">원, 네모, 세모, 하트로 패턴을 찾아요</p>
     <div class="mode-preview">
-      <span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1em" height="1em" style="vertical-align:-0.1em;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span style="opacity:0.4;">❓</span>
+      <span><svg viewBox="0 0 100 100" width="1.2em" height="1.2em" style="vertical-align:middle;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1.2em" height="1.2em" style="vertical-align:middle;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1.2em" height="1.2em" style="vertical-align:middle;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1.2em" height="1.2em" style="vertical-align:middle;display:inline-block;"><rect x="6" y="6" width="88" height="88" rx="14" fill="#E8C84A"/></svg></span><span><svg viewBox="0 0 100 100" width="1.2em" height="1.2em" style="vertical-align:middle;display:inline-block;"><circle cx="50" cy="50" r="46" fill="#E8C84A"/></svg></span><span style="opacity:0.4;">❓</span>
     </div>
     <div class="mode-btns">
       <div class="cycle-selector" id="cycle-shape">
