@@ -417,6 +417,8 @@
     transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
   }
   .feedback-float.show { transform: translate(-50%,-50%) scale(1); }
+  .btn-next-q { display: block; width: 100%; max-width: 360px; margin: 16px auto 0; padding: 14px 0; border-radius: 16px; border: none; background: var(--warm-700); color: white; font-family: inherit; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.15s, transform 0.1s; box-shadow: 0 2px 8px rgba(74,64,53,0.15); }
+  .btn-next-q:active { transform: scale(0.98); background: var(--warm-800); }
 
   /* Animations */
   @keyframes popIn {
@@ -801,6 +803,7 @@ setTimeout(function() {
   </div>
   <span class="combo-badge" id="combo-badge"></span>
   <div class="game-container" id="game-container"></div>
+  <button class="btn-next-q" id="next-q-btn" style="display:none;" onclick="onNextQ()">다음 문제 →</button>
 </div>
 
 </div><!-- /.app -->
@@ -1121,6 +1124,7 @@ function updateProgress() {
 
 // ===== Game Logic =====
 function nextQuestion() {
+  document.getElementById('next-q-btn').style.display='none';
   questionNum++;
   locked = false;
   if (impulseTimer) { clearInterval(impulseTimer); impulseTimer = null; }
@@ -1315,7 +1319,7 @@ function renderPattern() {
             renderPattern();
           }, 700);
         } else {
-          setTimeout(() => nextQuestion(), 900);
+          document.getElementById('next-q-btn').style.display='';
         }
       } else {
         btn.classList.add('wrong');
@@ -1329,6 +1333,11 @@ function renderPattern() {
       }
     });
   });
+}
+
+function onNextQ() {
+  document.getElementById('next-q-btn').style.display = 'none';
+  nextQuestion();
 }
 
 function showComplete() {
