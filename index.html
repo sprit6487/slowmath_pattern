@@ -1391,7 +1391,7 @@ function showComplete() {
   const gc = document.getElementById('game-container');
   gc.innerHTML = `
     <div class="complete-overlay">
-      <div class="complete-emoji">🏆</div>
+      <div class="complete-emoji">${score >= TOTAL_QUESTIONS * 10 ? '🏆' : '👏'}</div>
       <div class="complete-msg">${TOTAL_QUESTIONS}문제 완료!</div>
       <div class="complete-sub">${score}점</div>
       <button class="next-btn" id="retry-btn">다시 하기</button>
