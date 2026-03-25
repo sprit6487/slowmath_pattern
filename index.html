@@ -309,8 +309,8 @@
   /* Choices */
   .choices-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 12px; width: 100%; max-width: 280px;
-    margin: 12px auto 0; position: relative;
+    gap: 12px; width: 280px; max-width: calc(100% - 32px);
+    margin: 12px auto 0; align-self: center; position: relative;
   }
   .choice-btn {
     padding: 16px; border: 2.5px solid var(--border);
@@ -501,8 +501,9 @@
   .landscape-game[data-cycle="3"] .pattern-group { gap: 6px; padding: 5px 6px; }
   .landscape-game .pattern-group { padding: 3px 4px; gap: 3px; border-radius: 10px; flex-shrink: 1; min-width: 0; }
   .landscape-game .choices-grid {
-    grid-template-columns: repeat(4, 1fr); max-width: 360px;
-    gap: 8px; margin: 0 auto;
+    grid-template-columns: repeat(4, 1fr);
+    width: 360px; max-width: calc(100% - 32px);
+    gap: 8px; margin: 0 auto; align-self: center;
   }
   .landscape-game .choice-btn { padding: 8px; font-size: 1.5rem; border-radius: 12px; }
   .landscape-game .impulse-msg { font-size: 0.8rem; margin-top: 4px; min-height: 18px; }
