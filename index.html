@@ -501,8 +501,9 @@
   .landscape-game[data-cycle="3"] .pattern-group { gap: 6px; padding: 5px 6px; }
   .landscape-game .pattern-group { padding: 3px 4px; gap: 3px; border-radius: 10px; flex-shrink: 1; min-width: 0; }
   .landscape-game .choices-grid {
-    grid-template-columns: repeat(4, 1fr);
-    width: 360px; max-width: calc(100% - 32px);
+    grid-template-columns: repeat(auto-fit, minmax(60px, 90px));
+    justify-content: center;
+    width: min(380px, calc(100% - 32px));
     gap: 8px; margin: 0 auto; align-self: center;
   }
   .landscape-game .choice-btn { padding: 8px; font-size: 1.5rem; border-radius: 12px; }
