@@ -816,7 +816,7 @@ setTimeout(function() {
     </div>
   </div>
 
-  <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+  <button class="logout-btn" style="display:none" onclick="doLogout()">로그아웃</button>
 </div>
 
 <!-- Wrong Notes View -->
@@ -901,6 +901,7 @@ let currentUnit = [];
 function doLogin(provider) {
   localStorage.setItem(LOGIN_KEY, provider);
   const _sp=sessionStorage.getItem('_sp');if(_sp){sessionStorage.removeItem('_sp');startGame(...JSON.parse(_sp));return;}
+  document.querySelector('.logout-btn').style.display='';
   showView('start');
 }
 function doLogout() {
@@ -919,6 +920,7 @@ function showView(name) {
   wnView.classList.toggle('active', name === 'wn');
   if (name !== 'wn') wnView.classList.remove('active');
   if (name === 'start') { renderSettingsUI(); updateWrongNotesBadge(); }
+  const lb=document.querySelector('.logout-btn');if(lb)lb.style.display=name==='start'&&localStorage.getItem('slowmath_pattern_login')?'':'none';
 }
 
 // ===== Settings =====
