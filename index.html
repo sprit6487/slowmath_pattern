@@ -900,6 +900,7 @@ let currentUnit = [];
 // ===== Login =====
 function doLogin(provider) {
   localStorage.setItem(LOGIN_KEY, provider);
+  const _sp=sessionStorage.getItem('_sp');if(_sp){sessionStorage.removeItem('_sp');startGame(...JSON.parse(_sp));return;}
   showView('start');
 }
 function doLogout() {
@@ -1144,7 +1145,7 @@ function selectDiff(mode, diff) {
 }
 
 function startGame(mode, difficulty) {
-  if (!localStorage.getItem('slowmath_pattern_login')) { showView('login'); return; }
+  if (!localStorage.getItem('slowmath_pattern_login')) { sessionStorage.setItem('_sp',JSON.stringify([mode,difficulty])); showView('login'); return; }
     currentMode = mode;
   currentCycle = selectedCycles[mode] || 2;
   currentDifficulty = difficulty || selectedDiffs[mode] || 1;
