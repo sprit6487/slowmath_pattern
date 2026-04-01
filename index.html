@@ -659,13 +659,14 @@ setTimeout(function() {
                 Facebook으로 시작하기
             </button>
         </div>
+        <div style="margin-top: 32px; text-align: center;">
+            <p id="share-bubble" style="color: #B8AD9E; font-size: 0.85rem; margin: 0; line-height: 1.5;">지금 지인에게 공유하시면<br>하루 무료 이용권을 드려요</p>
+            <button style="margin-top: 12px; padding: 8px 20px; border: 1.5px solid #4A4035; background: none; border-radius: 8px; color: #4A4035; font-weight: 600; cursor: pointer; font-family: inherit;" onclick="shareApp()">공유하기</button>
+        </div>
     </div>
 
 <!-- Start View -->
 <div id="start-view" class="hidden" style="position:relative;">
-  <button onclick="shareApp()" style="position:absolute; top:8px; right:8px; background:white; border:2px solid #E8E2DA; border-radius:10px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#8C8070; z-index:10;" title="공유하기">
-    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v13"/></svg>
-  </button>
   <div class="brand">
     <div class="turtle-svg">
       <svg viewBox="0 0 120 100" width="90" height="75" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1524,13 +1525,28 @@ function clearWrongNotes() {
 
 // ===== Share =====
 function shareApp() {
-  const url = window.location.href;
-  if (navigator.share) {
-    navigator.share({ title: '느린아이 패턴 연습', url: url });
-  } else if (navigator.clipboard) {
-    navigator.clipboard.writeText(url);
-    alert('링크가 복사되었어요!');
-  }
+    var SHARE_KEY = 'slowmath_share_days';
+    var MAX_DAYS = 5;
+    var bubble = document.getElementById('share-bubble');
+    function onShared() {
+        var days = parseInt(localStorage.getItem(SHARE_KEY) || '0');
+        if (days < MAX_DAYS) { days = days + 1; localStorage.setItem(SHARE_KEY, days); }
+        if (bubble) {
+            bubble.textContent = '하루 무료 이용권이 지급되었습니다! — 지금까지 ' + days + '일 지급되었어요.';
+            setTimeout(function() {
+                bubble.innerHTML = days >= MAX_DAYS ? '무료 이용권을 최대 5일 모두 적립하셨어요! 🎉' : '지금 지인에게 공유하시면<br>하루 무료 이용권을 드려요';
+            }, 4000);
+        }
+    }
+    var title = document.title;
+    var url = location.href;
+    if (navigator.share) {
+        navigator.share({ title: title, url: url }).then(onShared).catch(function() {});
+    } else {
+        if (navigator.clipboard) { navigator.clipboard.writeText(url); }
+        alert('링크가 복사되었어요!');
+        onShared();
+    }
 }
 
 // ===== Init =====
