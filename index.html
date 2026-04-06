@@ -417,11 +417,8 @@
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center; z-index: 5;
   }
-  .reveal-btn {
-    padding: 12px 28px; border: 2px solid #C4AA82; border-radius: 14px;
-    background: #FAF5EE; font-size: 0.95rem; font-weight: 700;
-    color: #7B6545; cursor: pointer; font-family: inherit;
-  }
+  .reveal-btn{display:block;width:100%;max-width:320px;margin:0 auto 12px;padding:14px 0;border-radius:14px;border:2px solid #C4AA82;background:#FAF5EE;color:#7B6545;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;}
+.reveal-btn:active{background:#F0E6D6;transform:scale(.98);}
 
   .impulse-msg {
     font-size: 0.95rem; font-weight: 600; color: var(--app-orange);
@@ -589,7 +586,8 @@
   }
   .landscape-game .choice-btn { padding: 8px; font-size: 1.5rem; border-radius: 12px; }
   .landscape-game .impulse-msg { font-size: 0.8rem; margin-top: 4px; min-height: 18px; }
-  .landscape-game .reveal-btn { padding: 8px 20px; font-size: 0.85rem; }
+  .landscape-game .reveal-btn{display:block;width:100%;max-width:320px;margin:0 auto 12px;padding:14px 0;border-radius:14px;border:2px solid #C4AA82;background:#FAF5EE;color:#7B6545;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;}
+.reveal-btn:active{background:#F0E6D6;transform:scale(.98);}
   .landscape-game .complete-overlay { margin-top: 10px; gap: 6px; }
   .landscape-game .complete-emoji { font-size: 36px; }
   .landscape-game .complete-msg { font-size: 1rem; }
@@ -1402,7 +1400,7 @@ function renderPattern() {
       wrap.className = 'reveal-btn-wrap';
       const revealBtn = document.createElement('button');
       revealBtn.className = 'reveal-btn';
-      revealBtn.textContent = '👀 보기 확인';
+      revealBtn.textContent = '보기 확인';
       revealBtn.addEventListener('click', () => {
         grid.classList.remove('chips-hidden');
         wrap.remove();
