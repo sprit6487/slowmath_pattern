@@ -993,10 +993,10 @@ function doLogin(provider) {
 }
 function doLogout() {
   localStorage.removeItem(LOGIN_KEY);
-  showView('login');
+  showView('start');
 }
 function checkLogin() {
-  showView(localStorage.getItem(LOGIN_KEY) ? 'start' : 'login');
+  showView('start');
 }
 
 function showView(name) {
